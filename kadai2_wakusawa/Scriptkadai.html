@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Prime Numbers</title>
+</head>
+<body>
+
+	<h1>素数判定</h1>
+	<p>2〜200の数字を入力してください。<br>
+		以下に判定結果を表示します。</p>
+		<input type="text" id="input">
+		<input type="button" value="判定する" onclick="check();">
+
+		<p id="output"></p>
+
+<script>
+//2~200の整数をisNumberに代入
+	function isNumber(val) {
+	 if (val == NaN) {  //数値ではないとき(日本語や全角)false
+	   return false;
+	 } else if((val - Math.floor(val)) != 0) { //小数のときfalse
+		 return false;
+	 } else if (val < 2 || val > 200) { //２より小さく、２００より大きいときfalse
+	   return false;
+	 }
+	 return true;
+}
+//素数をisPrimesに代入
+function isPrimes(n){
+	if (n%2 == 0) return n == 2;
+	if (n%3 == 0) return n == 3;
+	var limit = Math.sqrt(n);  //平方根（ルート）=負の数でNaNをlimitに代入
+	for (var i=5, d=2; i <= limit; i+=d, d=6-d) { //初期値；繰り返し条件；増減
+	if (n%i == 0) return false;  //5以上の奇数で割った余りが０になれば素数、を
+  }
+	return true;
+}
+
+var check = function() {
+
+	var num = document.getElementById('input').value;
+		if(!isNumber(num)){
+	 		window.alert("半角で2~200の整数を入力してください");
+ 		} else if(isPrimes(num)){
+	 		document.getElementById('output').textContent='『' + num + '』は素数です。';
+ 		} else {
+	 		document.getElementById('output').textContent='『' + num + '』は素数ではありません。';
+ 		}
+
+}
+
+
+</script>
+
+</body>
+</html>
